@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Vehicle implements Serializable {
+
+    private static String OWNER;
     private String manufacturer;
     private Double pricePerDay; // optional
 
@@ -17,6 +19,7 @@ public class Vehicle implements Serializable {
 
     public Vehicle(String manufacturer, Double pricePerDay, FuelConsumption fuelConsumption,
                    double maxLoad, double currentLoad, Set<String> drivers) {
+        setOwner();
         setManufacturer(manufacturer);
         setPricePerDay(pricePerDay);
         setMaxLoad(maxLoad);
@@ -30,6 +33,23 @@ public class Vehicle implements Serializable {
     public Vehicle(String manufacturer, FuelConsumption fuelConsumption,
                    double maxLoad, double currentLoad, Set<String> drivers) {
         this(manufacturer, null, fuelConsumption, maxLoad, currentLoad, drivers);
+    }
+
+    public static String getOwner() {
+        return Vehicle.OWNER;
+    }
+
+    public static void setOwner(String owner) {
+        if (owner == null || owner.isBlank()) {
+            throw new IllegalArgumentException("Owner must have a proper name");
+        }
+        Vehicle.OWNER = owner;
+    }
+
+    private void setOwner() {
+        if (Vehicle.getOwner() == null) {
+            Vehicle.OWNER = "Nikita Padabed";
+        }
     }
 
     public String getManufacturer() {

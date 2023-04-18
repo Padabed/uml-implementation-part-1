@@ -96,4 +96,40 @@ public class VehicleTest {
         }
     }
 
+    @Test
+    void staticAttributeTest() {
+        try {
+            Vehicle.clearExtent();
+
+            drivers = new HashSet<>();
+            drivers.add("BigO");
+            drivers.add("");
+
+            ship = new Vehicle("Laguna", null, fuelConsumption,
+                    10, 8, drivers);
+
+            track = new Vehicle("Laguna", fuelConsumption,
+                    10, 9, drivers);
+
+            assertEquals("Nikita Padabed", Vehicle.getOwner());
+            assertEquals("Nikita Padabed", Vehicle.getOwner());
+            System.out.println(Vehicle.getOwner());
+
+            Vehicle.saveExtent();
+            Vehicle.loadExtent();
+
+            Vehicle.setOwner("Nikita");
+
+            Vehicle.saveExtent();
+            Vehicle.loadExtent();
+            assertEquals("Nikita", Vehicle.getOwner());
+            assertEquals("Nikita", Vehicle.getOwner());
+            System.out.println(Vehicle.getOwner());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
 }
